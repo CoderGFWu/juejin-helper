@@ -9,7 +9,7 @@ jobs:
   send-failure-email:
     runs-on: ubuntu-latest
     # 仅当 workflow 运行失败时执行此 job
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: 发送失败通知邮件
         uses: dawidd6/action-send-mail@v7
@@ -26,7 +26,7 @@ jobs:
           # 发件人显示名称
           from: "GitHub Actions 通知"
           # 邮件正文（支持 HTML，可自定义内容）
-          body: |
+          html_body: |
             <h3>⚠️ GitHub Actions 工作流运行失败</h3>
             <p>仓库：${{ github.repository }}</p>
             <p>工作流名称：${{ github.event.workflow_run.name }}</p>
